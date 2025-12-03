@@ -1,9 +1,6 @@
-FROM alpine
-EXPOSE 80
-RUN apk add nginx
-COPY ./ordinario-ftw /var/lib/nginx/html
-COPY ./caro.conf /etc/nginx/http.d/default.conf   
-CMD ["nginx","-g","daemon off;"]
-
-
-
+FROM rrojano/spring-boot:latest
+WORKDIR /app
+CMD ["java", "-jar", "target/SaludarDatos-0.0.1-SNAPSHOT.jar"]
+COPY ./SaludarDatos/SaludarDatos/pom.xml ./pom.xml
+COPY ./SaludarDatos/SaludarDatos/src ./src
+RUN mvn package -DskipTests
